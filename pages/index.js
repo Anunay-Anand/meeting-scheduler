@@ -1,8 +1,17 @@
 // Importing React and other important libraries
-import React from "react";
+import { useEffect } from "react";
+import { useRouter } from "next/dist/client/router";
 
 const HomePage = () => {
-  return <h1>Welcome to Homepage</h1>;
+  // Get the Router object
+  const router = useRouter();
+
+  // Creating a useEffect to redirect
+  useEffect(() => {
+    router.replace("/meetups");
+  }, [router]);
+
+  return null;
 };
 
 export default HomePage;
