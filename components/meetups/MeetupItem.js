@@ -1,7 +1,22 @@
-import Card from '../ui/Card';
-import classes from './MeetupItem.module.css';
+// Importing React and other important libraries
+import React from "react";
+import { useRouter } from "next/dist/client/router";
+
+// Importing cutom components and css module
+import Card from "../ui/Card";
+import classes from "./MeetupItem.module.css";
 
 function MeetupItem(props) {
+  // Using useRouter hook to get router object
+  const router = useRouter();
+
+  // Creating a details handler
+  const showDetailsHandler = () => {
+    // Using the router object to programmatcially redirect to a new path
+    // This will be a dynamic path
+    router.push("/meetups/" + props.id);
+  };
+
   return (
     <li className={classes.item}>
       <Card>
@@ -13,7 +28,7 @@ function MeetupItem(props) {
           <address>{props.address}</address>
         </div>
         <div className={classes.actions}>
-          <button>Show Details</button>
+          <button onClick={showDetailsHandler}>Show Details</button>
         </div>
       </Card>
     </li>
