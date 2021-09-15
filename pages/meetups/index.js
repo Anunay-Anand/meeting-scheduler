@@ -34,7 +34,27 @@ const DUMMY_MEETUPS = [
 
 // Redirecting component simply redirects to the all meetups page
 const Meetups = () => {
-  return <MeetupList meetups={DUMMY_MEETUPS} />;
+  // Managing state for our loaded Data
+  const [loadedMeetups, setLoadedMeetups] = useState([]);
+
+  // Using useEffect to call the server once the page is rendered
+  useEffect(() => {
+    // Using http request to fetch meetups from Database
+    // Calling set loadedMeetups
+    setLoadedMeetups(DUMMY_MEETUPS);
+  }, []);
+
+  return <MeetupList meetups={loadedMeetups} />;
 };
+
+// Using static generation to fetch all data during pre rendering
+export async function getStaticProps() {
+  // fetch some data from API
+  return {
+    props: {
+      meetups: DUMMY_MEETUPS,
+    },
+  };
+}
 
 export default Meetups;
