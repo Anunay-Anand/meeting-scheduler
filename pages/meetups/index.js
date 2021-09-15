@@ -37,6 +37,18 @@ const Meetups = (props) => {
   return <MeetupList meetups={props.meetups} />;
 };
 
+// export async function getServerSideProps(context) {
+//   const req = context.req;
+//   const res = context.res;
+
+//   // fetch data from an API or file system
+//   return {
+//     props: {
+//       meetups: DUMMY_MEETUPS,
+//     },
+//   };
+// }
+
 // Using static generation to fetch all data during pre rendering
 export async function getStaticProps() {
   // fetch some data from API
