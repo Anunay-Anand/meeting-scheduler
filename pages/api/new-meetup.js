@@ -9,7 +9,7 @@ async function handler(req, res) {
 
     // Connect to Mongo Server
     const client = await MongoClient.connect(
-      "mongodb+srv://anunay:Awesomepapa@7@cluster0.id530.mongodb.net/meetup?retryWrites=true&w=majority"
+      "mongodb+srv://anunay:nD8BXTO9SIjpshOh@cluster0.id530.mongodb.net/meetup?retryWrites=true&w=majority"
     );
     // Creating database
     const db = client.db();
@@ -18,7 +18,7 @@ async function handler(req, res) {
     const meetupCollections = db.collection("meetup");
 
     // Inserting the form submission
-    const result = meetupCollections.insertOne(data);
+    const result = await meetupCollections.insertOne(data);
 
     // Closing the client
     client.close();

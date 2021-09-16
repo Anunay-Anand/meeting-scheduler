@@ -1,5 +1,9 @@
 // Importing React and other Important libraries
 import React from "react";
+// import { MongoClient } from "mongodb";
+
+// Importing Helper function for mongoConnect
+import { mongoConnect } from "../../helpers/mongoConnect";
 
 // Importing custom components
 import MeetupList from "../../components/meetups/MeetupList";
@@ -51,10 +55,32 @@ const Meetups = (props) => {
 
 // Using static generation to fetch all data during pre rendering
 export async function getStaticProps() {
-  // fetch some data from API
+  const { meetupCollection, client } = await mongoConnect();
+
+  // fetch some data (Directly from Mongo)
+  // const client = await MongoClient.connect(
+  //   "mongodb+srv://anunay:nD8BXTO9SIjpshOh@cluster0.id530.mongodb.net/meetup?retryWrites=true&w=majority"
+  // );
+  // Creating database
+  // const db = client.db();
+
+  // Connecting to the database
+  // const meetupCollection = db.collection("meetup");
+
+  // Using find method to get all meetups
+  const meetups = await meetupCollection.find({}).toArray();
+
+  //Close the connection
+  client.close();
+
   return {
     props: {
-      meetups: DUMMY_MEETUPS,
+      meetups: meetups.map((meetup) => ({
+        title: meetup.title,
+        address: meetup.address,
+        image: meetup.image,
+        id: meetup._id.toString(),
+      })),
     },
     revalidate: 10,
   };
