@@ -2,6 +2,7 @@
 import React from "react";
 import axios from "axios";
 import { useRouter } from "next/dist/client/router";
+import Head from "next/head";
 
 // Importing custom components (which are not page components)
 import NewMeetupForm from "../../../components/meetups/NewMeetupForm";
@@ -32,7 +33,18 @@ const NewMeetupPage = () => {
     }
   };
 
-  return <NewMeetupForm onAddMeetup={addMeetupHandler} />;
+  return (
+    <React.Fragment>
+      <Head>
+        <title>New Meetup</title>
+        <meta
+          name="description"
+          content="Add your own meetup create amazing networking opportunities"
+        ></meta>
+      </Head>
+      <NewMeetupForm onAddMeetup={addMeetupHandler} />
+    </React.Fragment>
+  );
 };
 
 export default NewMeetupPage;
